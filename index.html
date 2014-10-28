@@ -2,65 +2,57 @@
 layout: default
 title: Miao's homepage
 --- 
-<html>
-<!--<title>Miao' homepage</title>-->
-<body>
-<!--<table>
-  <tr>
-    <td><center>
-        <h1>Miao's homepage</h1>
-      </center></td>
-  </tr>
+<div>
+<table>
+<tr>
+<td width="200">
+<center><h3><font color="#0066FF">Deep-Learning</font></h3></center>
+</td>
+<td width="200">
+<center><h3><font color="#0066FF">Machine-Learning</font></h3></center>
+</td>
+</tr>
 </table>
--->
+</div>
 <hr align=center size=5 color=green> </hr>
 <table>
   <tr>
     <td><table>
         <tr>
-          <td><img src="images/my0.jpg" /> </td>
+          <td><center><img src="images/my0.jpg" /> </center></td>
         </tr>
         <tr>
-          <td> Email: miaomiao_1989@yeah.net </td>
+          <td><br/>Email: miaomiao_1989@yeah.net<br/></td>
         </tr>
       </table></td>
 	  <td>
 	  <table width="100">
 	  </table>
 	  </td>
-    <td><table>
-        <tr>
+    <td>
+<table>
+<tr>
+<td>
+<table>
+     <tr>
           <td>
-          <ul type=disc>
-              <li>
-                <h2><a href="_post/2014-10-22-DL">Deep Learning</h2>
-              <li>
-                <h2></h2>
-            </ul></td>
-        </tr>
-      </table></td>
-  </tr>
-</table>
-<hr align=center size=5 color=green> </hr>
-</body>
-</html>
-<!--<div class="home">
-
-  <h1 class="page-heading">Posts</h1>
-
-  <ul class="post-list">
+    <ul class="post-list">
     {% for post in site.posts %}
       <li>
-        <span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</span>
-
+        <!--<span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</span>-->
         <h2>
           <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
         </h2>
       </li>
     {% endfor %}
-  </ul>
-
-  <p class="rss-subscribe">subscribe <a href="{{ "/feed.xml" | prepend: site.baseurl }}">via RSS</a></p>
-
-</div>
--->
+    </ul>
+         </td>
+        </tr>
+      </table>
+</td>
+<tr>
+</table>
+</td>
+  </tr>
+</table>
+<hr align=center size=5 color=green> </hr>
