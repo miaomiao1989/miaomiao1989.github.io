@@ -28,7 +28,7 @@ $$\underset{w,b,c}{\min} -\log P(v,h)$$
 
 ####在这里，由于隐层有$$K$$个group(特征map),而每个group的维数和原始图像相差无几，这将造成隐层巨大的维数特征(例如：24个map，91x91维，则隐层的维数为24x91x91=198744)。而解决这一问题最常用的方法就是令隐层特征稀疏，换句话说，就是使隐层处于激活状态的节点只有少数。将这一约束添加到目标函数为：
 
-$$\underset{w,b,c}{\min} -\log P(v,h)+\lambda \overset{n}{\underset{j=1}{\sum}}\| p-E[h_{j}|v]\| ^{2}$$
+$$\underset{w,b,c}{\min} -\log P(v,h)+\lambda \overset{n}{\underset{j=1}{\sum}}\|p-E[h_{j}|v]\|^{2}$$
 
 ####其中$$p$$为控制隐层节点$$h_{j}$$稀疏性的常数，$$E[\cdot]$$为条件期望。这一模型利用梯度下降法进行求解。
 
