@@ -71,3 +71,7 @@ title: 预学习(pre-training)的作用
 ###Reference
 
 ####[1] Erhan D, Manzagol P A, Bengio Y, et al. The difficulty of training deep architectures and the effect of unsupervised pre-training[C]//International Conference on Artificial Intelligence and Statistics. 2009: 153-160.
+
+####[2] Erhan D, Bengio Y, Courville A, et al. Why does unsupervised pre-training help deep learning?[J]. The Journal of Machine Learning Research, 2010, 11: 625-660.
+
+####[3] Bengio Y, Lamblin P, Popovici D, et al. Greedy layer-wise training of deep networks[J]. Advances in neural information processing systems, 2007, 19: 153.
