@@ -1,7 +1,8 @@
 ---
 layout: default
-title: CNN预学习-CAE
 ---
+
+
 <table align="left">
     <h4 style="text-indent: 2em;"><a href= "../index.html">Deep-Learning</a></h4>
 </table>
