@@ -1,58 +1,26 @@
 ---
 layout: default
-title: Miao's homepage
 --- 
-<div>
-<table>
-<tr>
-<td width="200">
-<center><h3><font color="#0066FF">Deep-Learning</font></h3></center>
-</td>
-<td width="200">
-<center><h3><font color="#0066FF">Machine-Learning</font></h3></center>
-</td>
-</tr>
-</table>
-</div>
+<div class="home">
 <hr align=center size=5 color=green> </hr>
-<table>
-  <tr>
-    <td><table>
-        <tr>
-          <td><center><img src="images/my0.jpg" /> </center></td>
-        </tr>
-        <tr>
-          <td><br/>Email: miaomiao_1989@yeah.net<br/></td>
-        </tr>
-      </table></td>
-	  <td>
-	  <table width="100">
-	  </table>
-	  </td>
-    <td>
+<h1 >Deep Learning</h1>
 <table>
 <tr>
 <td>
-<table>
-     <tr>
-          <td>
-    <ul class="post-list">
-    {% for post in site.posts %}
-      <li>
-        <!--<span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</span>-->
-        <h2>
-          <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>>
-        </h2>
-      </li>
-    {% endfor %}
-    </ul>
-         </td>
-        </tr>
-      </table>
+  <ul class="post-list">
+    <h4 style="text-indent: 2em;"><a href= "DL-start/index.html">1. Deep Learning 开篇</a></h4>
+	<h4 style="text-indent: 2em;"><a href= "DN-and-DL/index.html">2. 深度网络和深度学习</a></h4>
+	<h4 style="text-indent: 2em;"><a href= "CNN/index.html">3. 卷积神经网络(CNN)</a></h4>
+	<h4 style="text-indent: 2em;"><a href= "preTraining/index.html">4. 预学习(pre-training)的作用</a></h4>
+	<h4 style="text-indent: 2em;"><a href= "CAE/index.html">5. CNN预学习-CAE</a></h4>
+	<h4 style="text-indent: 2em;"><a href= "CDBN/index.html">6. CNN预学习-CDBN</a></h4>
+	<h4 style="text-indent: 2em;"><a href= "DC/index.html">7. 反卷积网络(DC)</a></h4>
+	<h4 style="text-indent: 2em;"><a href= "PSD/index.html">9. CNN预学习-PSD</a></h4>
+	<h4 style="text-indent: 2em;"><a href= "visualizing/index.html">9. 神经网络可视化</a></h4>
+	<h4 style="text-indent: 2em;"><a href= "Layer-wise/index.html">10. 逐层学习</a></h4>
 </td>
-<tr>
+</tr>
 </table>
-</td>
-  </tr>
-</table>
-<hr align=center size=5 color=green> </hr>
+	
+	<hr align=center size=5 color=green> </hr>
+</div>
