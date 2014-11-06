@@ -1,10 +1,11 @@
 ---
 layout: post
-title: 反卷积网络(Deconvolution network,DC)
 ---
 <table align="left">
     <h4 style="text-indent: 2em;"><a href= "../index.html">Deep-Learning</a></h4>
 </table>
+
+#**反卷积网络(Deconvolution network,DC)**
 
 ####&nbsp;&nbsp;&nbsp;&nbsp;深度网络结构是由多个单层网络叠加而成的，而常见的单层网络按照编码解码情况可以分为下面3类：
 

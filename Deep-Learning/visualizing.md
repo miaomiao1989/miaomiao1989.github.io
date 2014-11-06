@@ -1,10 +1,11 @@
 ---
-layout: post
-title: 神经网络可视化
+layout: post 
 ---
 <table align="left">
     <h4 style="text-indent: 2em;"><a href= "../index.html">Deep-Learning</a></h4>
 </table>
+
+#**神经网络可视化**
 
 ####&nbsp;&nbsp;&nbsp;&nbsp;当我们训练完一个深度模型后，我们还特别想把这个深度模型学到的东西给可视化出来，好弄明白它到底学到了什么东西，是不是有意义的, 提取到的是什么特征，如果是例如边缘，到形状，到目标等等，那就证明网络搭建是正确的。
 

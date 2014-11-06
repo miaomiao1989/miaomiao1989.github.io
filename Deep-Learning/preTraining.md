@@ -1,10 +1,11 @@
 ---
 layout: post
-title: 预学习(pre-training)的作用
 ---
 <table align="left">
     <h4 style="text-indent: 2em;"><a href= "../index.html">Deep-Learning</a></h4>
 </table>
+
+#**预学习(pre-training)的作用**
 
 ####&nbsp;&nbsp;&nbsp;&nbsp;本篇博文主要讨论的是：为什么预学习能够比随机初始化参数的网络能有更好的效果？预学习在整个网络结构中起到了什么作用个？
 
@@ -16,7 +17,7 @@ title: 预学习(pre-training)的作用
 
 ####&nbsp;&nbsp;&nbsp;&nbsp;在深度网络中搜索参数是非常困难的，因为优化模型的非凸性，会涉及到很多局部最小值。Erhan(2009b)通过实验证明，对于上千个随机初始化的参数，梯度下降法每次迭代得到的最小值都不同，在结构多于2或3层的时候，得到的效果很差。这也说明了为什么在很长一段时间，深度结构没有引起注意。
 
-####&nbsp;&nbsp;&nbsp;&nbsp;2006年Hinton提出了training Deep Belief Networks，利用无监督方法逐层预学习，然后用监督方法精调(fine-tuning)。将无监督预学习作为参数调整的一个阶段，后面利用梯度方法进行精调，这是第一次提到预学习方法。
+####&nbsp;&nbsp;&nbsp;&nbsp;2006年Hinton提出了training Deep Belief Networks，利用无监督方法逐层预学习(<a href="../Layer-wise/index.html">逐层预学习简介</a>)，然后用监督方法精调(fine-tuning)。将无监督预学习作为参数调整的一个阶段，后面利用梯度方法进行精调，这是第一次提到预学习方法。
 
 ####&nbsp;&nbsp;&nbsp;&nbsp;Bengio在文献[1]中利用大量的实验探究了预学习在深度结构中的优势。
 

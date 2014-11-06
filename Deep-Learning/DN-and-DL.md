@@ -1,11 +1,11 @@
 ---
 layout: post
-title: 深度网络和深度学习 
 ---
 <table align="left">
     <h4 style="text-indent: 2em;"><a href= "../index.html">Deep-Learning</a></h4>
 </table>
 
+#**深度网络和深度学习**
 
 ![hdsj](../images/DN-1.jpg)
  

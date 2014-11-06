@@ -1,11 +1,11 @@
 ---
 layout: default
 ---
-
-
 <table align="left">
     <h4 style="text-indent: 2em;"><a href= "../index.html">Deep-Learning</a></h4>
 </table>
+
+#**CNN预学习--CAE**
 
 ####&nbsp;&nbsp;&nbsp;&nbsp;这篇文章总结一下"Stacked convolutional auto-encoders for hierarchical feature extraction",利用堆叠卷积自编码预学习CNN。
 
@@ -23,7 +23,7 @@ $$y'=\sigma (W'h+b')$$-----解码过程
     
 ####其中$$y'$$是$$y$$的近似重构，$$W'$$为$$W$$的转置。
 
-####去噪自编码即对输入图像添加噪声, 是为了能够提取到足够鲁棒的特征。
+####去噪自编码即对输入图像添加噪声, 是为了能够提取到足够鲁棒的特征。(在自编码中效果比较好的是去噪自编码和稀疏自编码~)
 
 ####传统的自编码是1D形式，忽略了图像的2D结构，这里利用权值共享处理2D结构，保留了图像之间的空间结构。根据权值共享和局部感受野，自编码卷积网络可以表示为：
 ![](../images/CAE-2.jpg)
