@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: default
 title: CNN预学习-CAE
 ---
 <table align="left">
