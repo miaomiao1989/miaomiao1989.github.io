@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: default
 ---
 <table align="left">
     <h4 style="text-indent: 2em;"><a href= "../index.html">Deep-Learning</a></h4>
