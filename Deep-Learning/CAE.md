@@ -1,6 +1,7 @@
 ---
 layout: post
 ---
+
 #**CNN预学习--CAE**
 
 ####&nbsp;&nbsp;&nbsp;&nbsp;这篇文章总结一下"Stacked convolutional auto-encoders for hierarchical feature extraction",利用堆叠卷积自编码预学习CNN。

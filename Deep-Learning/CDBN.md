@@ -1,6 +1,7 @@
 ---
 layout: post
 ---
+
 #**CNN预学习-CDBN**
 
 ####&nbsp;&nbsp;&nbsp;&nbsp;这篇文章来总结CNN预学习的第二种方法CDBN(Convolutional Deep Belief Networks). 
