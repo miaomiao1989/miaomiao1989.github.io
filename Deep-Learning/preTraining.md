@@ -1,9 +1,6 @@
 ---
 layout: post
 ---
-<table align="left">
-    <h4 style="text-indent: 2em;"><a href= "../index.html">Deep-Learning</a></h4>
-</table>
 
 #**预学习(pre-training)的作用**
 
@@ -66,7 +63,7 @@ layout: post
 <img src="../images/pre-6.jpg">
 </div>
 
-####上述表格第一列表示两个网络，一个是一层一个是两层网络，第二列表示参数是随机初始化的，第二列表示在预学习划定的参数变动范围和分布上随机初始化参数，第三列表示预学习得到参数，表格里面的数据为测试误差。从这个表格上可以看到，即使在预学习得到的参数范围和分布上随机初始化得到的结果比随机初始化得到的要好一些，但依然没有预学习得到的结果好。<font color="red">这说明预学习并不是仅仅提供一个参数初始化范围和分布</font>(具体还有什么，文章里没有提~)。
+####上述表格第一列表示两个网络，一个是一层一个是两层网络，第二列表示参数是随机初始化的，第二列表示在预学习划定的参数变动范围和分布上随机初始化参数，第三列表示预学习得到参数，表格里面的数据为测试误差。从这个表格上可以看到，即使在预学习得到的参数范围和分布上随机初始化得到的结果比随机初始化得到的要好一些，但依然没有预学习得到的结果好。<font color="red">这说明预学习并不是仅仅提供一个参数初始化范围和分布</font>(具体还有什么，文章里没有提~, 然后文献[4]中hinton又提出了好的初始化加合理动量能得到好的效果(待进一步研究一下)。
 
 
 ###Reference
@@ -76,3 +73,5 @@ layout: post
 ####[2] Erhan D, Bengio Y, Courville A, et al. Why does unsupervised pre-training help deep learning?[J]. The Journal of Machine Learning Research, 2010, 11: 625-660.
 
 ####[3] Bengio Y, Lamblin P, Popovici D, et al. Greedy layer-wise training of deep networks[J]. Advances in neural information processing systems, 2007, 19: 153.
+
+####[4]Sutskever I, Martens J, Dahl G, et al. On the importance of initialization and momentum in deep learning[C]//Proceedings of the 30th International Conference on Machine Learning (ICML-13). 2013: 1139-1147.

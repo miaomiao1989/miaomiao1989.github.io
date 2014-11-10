@@ -1,10 +1,6 @@
 ---
 layout: post
 ---
-<table align="left">
-    <h4 style="text-indent: 2em;"><a href= "../index.html">Deep-Learning</a></h4>
-</table>
-
 #**深度学习开篇**
 
 ####机器学习的两大热潮分别为浅层学习(Shallow Learning) 和深度学习(Deep Learning). 

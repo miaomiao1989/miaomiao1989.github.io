@@ -1,10 +1,6 @@
 ---
-layout: default
+layout: post
 ---
-<table align="left">
-    <h4 style="text-indent: 2em;"><a href= "../index.html">Deep-Learning</a></h4>
-</table>
-
 #**卷积神经网络(CNN)**
 
 ####在前面的博文中，我们讲到了，对于深度网络(Deep networks)，存在的问题主要有：

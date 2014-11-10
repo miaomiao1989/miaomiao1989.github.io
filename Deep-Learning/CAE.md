@@ -1,10 +1,6 @@
 ---
-layout: default
+layout: post
 ---
-<table align="left">
-    <h4 style="text-indent: 2em;"><a href= "../index.html">Deep-Learning</a></h4>
-</table>
-
 #**CNN预学习--CAE**
 
 ####&nbsp;&nbsp;&nbsp;&nbsp;这篇文章总结一下"Stacked convolutional auto-encoders for hierarchical feature extraction",利用堆叠卷积自编码预学习CNN。

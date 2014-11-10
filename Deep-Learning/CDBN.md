@@ -1,10 +1,6 @@
 ---
-layout: default
+layout: post
 ---
-<table align="left">
-    <h4 style="text-indent: 2em;"><a href= "../index.html">Deep-Learning</a></h4>
-</table>
-
 #**CNN预学习-CDBN**
 
 ####&nbsp;&nbsp;&nbsp;&nbsp;这篇文章来总结CNN预学习的第二种方法CDBN(Convolutional Deep Belief Networks). 

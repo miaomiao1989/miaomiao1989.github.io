@@ -1,10 +1,6 @@
 ---
 layout: post
 ---
-<table align="left">
-    <h4 style="text-indent: 2em;"><a href= "../index.html">Deep-Learning</a></h4>
-</table>
-
 #**CNN预学习-PSD**
 
 ####这博文主要总结一下“Learning convolutional feature hierarchies for visual recognition”这篇论文。

@@ -1,10 +1,6 @@
 ---
 layout: post 
 ---
-<table align="left">
-    <h4 style="text-indent: 2em;"><a href= "../index.html">Deep-Learning</a></h4>
-</table>
-
 #**逐层学习**
 
 ####前面的博文中我们提到过，针对深度学习中出现的问题，解决的方法主要有两类，一类是提高数据量，采用自编码+逐层学习，一类是利用CNN减少参数数量。
