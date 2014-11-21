@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: default
 ---
 
 #**CNN预学习-CDBN**
