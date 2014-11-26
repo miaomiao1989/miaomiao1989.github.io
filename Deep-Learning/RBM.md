@@ -88,3 +88,58 @@ $$\min -\underset{i}{\sum}V_{i}\log(V'_{i})-\underset{i}{\sum}(1-V_{i})\log(1-V'
 $$\min -\sum_{i}C_{i}-C'_{i}$$
 
 ####方法依然是共轭梯度法。再将调整好的了最后一层的权值和前面RBM学习好的权值联合成一个列向量，用上面作为自编码的相同的方法进行调整权值。
+
+####**权值可视化结果**
+
+####在手写体图片上，图片大小为28x28，训练图像为10000张，网络结果含有三个隐层~，节点分别为1000,500,250,权值可视化结果如下：
+<div style="text-align: center">
+<img src="../images/layer1_diff.jpg">
+</div>
+<center><h4>第1个隐层权值可视化</h4></center>
+
+<div style="text-align: center">
+<img src="../images/layer2-diff.jpg">
+</div>
+<center><h4>第2个隐层权值可视化</h4></center>
+
+<div style="text-align: center">
+<img src="../images/layer3-diff.jpg">
+</div>
+<center><h4>第3个隐层权值可视化</h4></center>
+
+####在非全脸(不带头发和额头)人脸图像上，图像大小为48x48，训练图像为600张，网络结果为含有四个隐层，节点分别为1000，500,250,30，迭代10次，各层的可视化权值为：
+<div style="text-align: center">
+<img src="../images/layer1-600.jpg" style="width:1000; height=1000px;"/>
+</div>
+<center><h4>第1个隐层权值可视化</h4></center>
+<div style="text-align: center">
+<img src="../images/layer2-600.jpg">
+</div>
+<center><h4>第2个隐层权值可视化</h4></center>
+<div style="text-align: center">
+<img src="../images/layer3-600.jpg">
+</div>
+<center><h4>第3个隐层权值可视化</h4></center>
+<div style="text-align: center">
+<img src="../images/layer4-600.jpg">
+</div>
+<center><h4>第4个隐层权值可视化</h4></center>
+
+####在图像为48x48的全脸(带头发和额头)人脸图像上，训练样本为10000，网络结构同上，依然是四个隐层，分别为1000，500,250,30，迭代200次，可视化权值结果为：
+<div style="text-align: center">
+<img src="../images/layer1-10000-200.jpg" style="width:1000; height=1000px;"/>
+</div>
+<center><h4>第1个隐层权值可视化</h4></center>
+<div style="text-align: center">
+<img src="../images/layer2-10000-200.jpg">
+</div>
+<center><h4>第2个隐层权值可视化</h4></center>
+<div style="text-align: center">
+<img src="../images/layer3-10000-200.jpg">
+</div>
+<center><h4>第3个隐层权值可视化</h4></center>
+<div style="text-align: center">
+<img src="../images/layer4-10000-200.jpg">
+</div>
+<center><h4>第4个隐层权值可视化</h4></center>
+
