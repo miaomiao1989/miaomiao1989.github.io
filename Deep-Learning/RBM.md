@@ -77,7 +77,7 @@ $$\min -\frac{1}{N}\underset{i}{\sum}\underset{j}{\sum}(V.*\log(V'))+(1-V).*(1-\
 
 ####其中$$X,X',N$$分别表示输入训练样本，输入重构样本，和样本个数，$$.*$$表示对应元素相乘。
 
-####&nbsp;&nbsp;&nbsp;&nbsp;在hiton(2006)的文章中称上述目标函数为交叉熵误差，作为fine-tuning的误差函数，即:
+####&nbsp;&nbsp;&nbsp;&nbsp;在hiton(2006)[3]的文章中称上述目标函数为交叉熵(cross-entropy error )误差，作为fine-tuning的误差函数，即:
 
 $$\min -\underset{i}{\sum}V_{i}\log(V'_{i})-\underset{i}{\sum}(1-V_{i})\log(1-V'_{i})$$
 
