@@ -6,7 +6,7 @@ layout: default
 
 ####**1. RBM基本思想**
 
-####&nbsp;&nbsp;&nbsp;&nbsp;Restricted Boltzmann machines（RBM）是一种特殊的马尔科夫随机场，其含有一个随机隐层(通常为伯努利分布)和一个随机可视层(通常为高斯或伯努利分布)。RBM可以看成是双边图，可视层和隐层之间是全连接。
+####&nbsp;&nbsp;&nbsp;&nbsp;Restricted Boltzmann machines（RBM）(Li Deng[1])是一种特殊的马尔科夫随机场，其含有一个随机隐层(通常为伯努利分布)和一个随机可视层(通常为高斯或伯努利分布)。RBM可以看成是双边图，可视层和隐层之间是全连接。
 
 ####&nbsp;&nbsp;&nbsp;&nbsp;在RBM中，隐层和可视层之间的联合分布$$p(v,h;\theta)$$可由能量函数$$E(v,h;\theta)$$定义为：
 <div style="text-align: center">
@@ -42,7 +42,7 @@ layout: default
 
 $$\min -\log(p(v,j;\theta))$$
 
-####&nbsp;&nbsp;&nbsp;&nbsp;参数更新为：
+####&nbsp;&nbsp;&nbsp;&nbsp;参数更新为(Andrew [2])：
 
 $$w_{ij}=w_{ij}+\alpha(<v_{i}h_{j}>_{data}-<v_{i}h_{j}>_{recon})$$
 
@@ -56,17 +56,17 @@ $$a_{j}=a_{j}+\alpha(<h_{j}>_{data}-<j_{j}>_{recon})$$
 
 ####**逐层学习**
 
-####&nbsp;&nbsp;&nbsp;&nbsp;假设构建带有4个隐层的深度RBMs网络，每层都是一个RBM。各层的节点个数分别为：输入层节点数784，第一层隐层节点数1000，第二层节点数500，第三层节点数250，第四层节点数30。
+####&nbsp;&nbsp;&nbsp;&nbsp;根据 hinton 2006[3] 文章中的RBM网络构建，假设构建带有4个隐层的全连接深度RBMs网络，每层都是一个RBM。各层的节点个数分别为：输入层节点数784，第一层隐层节点数1000，第二层节点数500，第三层节点数250，第四层节点数30。
 
 ####&nbsp;&nbsp;&nbsp;&nbsp;如果输入为伯努利分布分布可视节点，则经过sigmoid函数变化，得到第一层隐层的输出$$h^{1}\in R^{1000\times 1}$$，其中的连接权值$$W^{1}\in R^{784\times 1000}$$。之后对得到的$$h^{1}$$进行随机采样(通过与随机数的比较，将值置为0或1)，然后利用这一采样后的二值状态通过sigmoid函数对输入层进行重构，得到重构后的输入层节点$$v'$$，再通过重构的$$v'$$经过sigmoid函数重构隐层节点$$(h^{1})'$$。利用$$v,v',h^{1},(h^{1})'$$通过前面提到的公式更新权值和偏置值参数。
 
-####&nbsp;&nbsp;&nbsp;&nbsp;<font color='red'>Note:上面提到了再隐层到输入可视层的重构之前，需要进行一步随机采样，这是2002年hinton提出的一种对Gibbs采样的一种加速方法称为对比散度(Contrastive Divergence, CD)。在RBM中进行Gibbs采样的目的是通过k步Gibbs采样从原始样本中采样得到符合RBM定义的分布的随机样本。这种计算在可视层节点较多的情形下计算量是非常大的。因此，hinton提出了CD方法，仅需要一步采样就能得到足够好的近似。</font>
+####&nbsp;&nbsp;&nbsp;&nbsp;<font color='red'>Note:上面提到了在隐层到输入可视层的重构之前，需要进行一步随机采样，这是2002年hinton[4]提出的一种对Gibbs采样的一种加速方法称为对比散度(Contrastive Divergence, CD)。在RBM中进行Gibbs采样的目的是通过k步Gibbs采样从原始样本中采样得到符合RBM定义的分布的随机样本。这种计算在可视层节点较多的情形下计算量是非常大的。因此，hinton提出了CD方法，仅需要一步采样就能得到足够好的近似。</font>
 
 ####&nbsp;&nbsp;&nbsp;&nbsp;由上面训练得到了第一层隐层的输出值$$h^{1}$$，将这一值作为下一层的输入，用相同的方法进行后面三层的训练，得到$$v-h^{1}-h^{2}-h^{3}-h^{4}$$，连接权值分别为$$W_{1}\in R^{784\times 1000}, W_{2}\in R^{1000\times 500}, W_{3}\in R^{500\times 250}, W_{4}\in R^{250\times 30}$$。
 
 ####**展开与精调**
 
-####&nbsp;&nbsp;&nbsp;&nbsp;当完成了RBM的逐层学习之后，得到了每层的权值，需要对权值进行精调。将网络进行展开为：
+####&nbsp;&nbsp;&nbsp;&nbsp;Hinton 2006[3]中提到，当完成了RBM的逐层学习之后，得到了每层的权值，需要将网络展开对权值进行精调(fine-tuning)。将网络进行展开为：
 <div style="text-align: center">
 <img src="../images/RBM-6.jpg">
 </div>
@@ -180,3 +180,14 @@ $$\min -\sum_{i}C_{i}-C'_{i}$$
 <center><h4>第4个隐层权值可视化</h4></center>
 
 ####我的感觉是，相同网络结构和参数下，男性第四层提到的特征脸部情况要比女性清晰~我个人的猜测是女性第四层五官学习的不清析，可能是由于女性头发的干扰~
+
+
+####**Reference**
+
+####[1] Deep Learning methods and applications, Li Deng and Dong Yu, 2014.
+
+####[2] Sparse deep belief net model for visual area V2, Honglak Lee, Andrew Y.Ng, 2008.
+
+####[3] Reducing the dimensionality of data with neural networks, Hinton, 2006.
+
+####[4] Training products of experts by minimizing contrastive divergence, Hinton, 2002.
