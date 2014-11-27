@@ -81,7 +81,7 @@ $$\min -\frac{1}{N}\underset{i}{\sum}\underset{j}{\sum}(V.*\log(V'))+(1-V).*(1-\
 
 $$\min -\underset{i}{\sum}V_{i}\log(V'_{i})-\underset{i}{\sum}(1-V_{i})\log(1-V'_{i})$$
 
-####&nbsp;&nbsp;&nbsp;&nbsp;这一目标函数是利用共轭梯度法(点这里-共轭梯度法简介)求解下降方向，用线性搜索法(点这里--线性搜索法)求解每次下降的迭代解。
+####&nbsp;&nbsp;&nbsp;&nbsp;这一目标函数是利用共轭梯度法(<a href="http://blog.sciencenet.cn/blog-54276-569356.html">共轭梯度法</a>)求解下降方向，用线性搜索法求解每次下降的迭代步长。
 
 ####如果对应输出元素用于分类的情况下，在输入层后面添加一层和类别个数相同和节点的输出层，权值首先随机初始化$$W_{class}$$。在fine-tuning的过程中，首先调整最后一层的权值。假设输出的分类结果为$$C$$，真实的类别结果为$$C'$$，则调整最后一层权值的目标函数为：
 
@@ -107,7 +107,7 @@ $$\min -\sum_{i}C_{i}-C'_{i}$$
 </div>
 <center><h4>第3个隐层权值可视化</h4></center>
 
-####在非全脸(不带头发和额头)人脸图像上，图像大小为48x48，训练图像为600张，网络结果为含有四个隐层，节点分别为1000，500,250,30，迭代10次，各层的可视化权值为：
+<!--####在非全脸(不带头发和额头)女性人脸图像上，图像大小为48x48，训练图像为600张，网络结果为含有四个隐层，节点分别为1000，500,250,30，迭代10次，各层的可视化权值为：
 <div style="text-align: center">
 <img src="../images/layer1-600.jpg" style="width:1000; height=1000px;"/>
 </div>
@@ -123,9 +123,9 @@ $$\min -\sum_{i}C_{i}-C'_{i}$$
 <div style="text-align: center">
 <img src="../images/layer4-600.jpg">
 </div>
-<center><h4>第4个隐层权值可视化</h4></center>
+<center><h4>第4个隐层权值可视化</h4></center>-->
 
-####在图像为48x48的全脸(带头发和额头)人脸图像上，训练样本为10000，网络结构同上，依然是四个隐层，分别为1000，500,250,30，迭代200次，可视化权值结果为：
+####<font color='red'在图像为48x48的全脸女性(带头发和额头)人脸图像上</font>，训练样本为10000，网络结构同上，依然是四个隐层，分别为1000，500,250,30，迭代200次，可视化权值结果为：
 <div style="text-align: center">
 <img src="../images/layer1-10000-200.jpg" style="width:1000; height=1000px;"/>
 </div>
@@ -143,3 +143,40 @@ $$\min -\sum_{i}C_{i}-C'_{i}$$
 </div>
 <center><h4>第4个隐层权值可视化</h4></center>
 
+####<font color='red'在图像为48x48的非全脸(不带头发和额头)女性图像上</font>，训练样本为10000，网络结构依然为四个隐层，分别为1000，500,250,30，迭代200次，可视化权值为：
+<div style="text-align: center">
+<img src="../images/female/layer1-10000-female.jpg" style="width:1000; height=1000px;"/>
+</div>
+<center><h4>第1个隐层权值可视化</h4></center>
+<div style="text-align: center">
+<img src="../images/female/layer2-10000-female.jpg">
+</div>
+<center><h4>第2个隐层权值可视化</h4></center>
+<div style="text-align: center">
+<img src="../images/female/layer3-10000-female.jpg">
+</div>
+<center><h4>第3个隐层权值可视化</h4></center>
+<div style="text-align: center">
+<img src="../images/female/layer4-10000-female.jpg">
+</div>
+<center><h4>第4个隐层权值可视化</h4></center>
+
+####<font color='red'>在图像为48x48的非全脸(不带头发和额头)男性图像上</font>，训练样本为10000，网络结构依然为四个隐层，分别为1000，500,250,30，迭代200次，可视化权值为：
+<div style="text-align: center">
+<img src="../images/male/layer1-10000-male.jpg" style="width:1000; height=1000px;"/>
+</div>
+<center><h4>第1个隐层权值可视化</h4></center>
+<div style="text-align: center">
+<img src="../images/male/layer2-10000-male.jpg">
+</div>
+<center><h4>第2个隐层权值可视化</h4></center>
+<div style="text-align: center">
+<img src="../images/male/layer3-10000-male.jpg">
+</div>
+<center><h4>第3个隐层权值可视化</h4></center>
+<div style="text-align: center">
+<img src="../images/male/layer4-10000-male.jpg">
+</div>
+<center><h4>第4个隐层权值可视化</h4></center>
+
+####我的感觉是，相同网络结构和参数下，男性第四层提到的特征脸部情况要比女性清晰~我个人的猜测是女性第四层五官学习的不清析，可能是由于女性头发的干扰~
