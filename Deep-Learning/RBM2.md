@@ -27,12 +27,21 @@ $$b_{i}=b_{i}+\alpha(<v_{i}>_{data}-<v_{i}>_{recon})$$
 
 $$a_{j}=a_{j}+\alpha(<h_{j}>_{data}-<j_{j}>_{recon})$$
 
-####
-- <h4>Gaussian-Bernoulli RBM是指可视层节点服从高斯分布，隐层节点服从二值分布。多隐层RBM通常是第一层为Gaussian-Bernoulli RBM，后面几层为stack Bernoulli-Bernoulli RBM 构成的。</h4>
-- <h4></h4>
+####<font color='red'>因为在Bernoulli-Bernoulli RBM中，大部分的数据是分布在0,1处，因此实际上是并不能很准确的表达有用信息的，正是因为这一原因，如果将自然图像的实值数据的激活概率作为激活，用Bernoulli-Bernoulli RBM来刻画是不合理的(参见文献[2])。</font>
+
+####**Gaussian-Bernoulli RBM**
+
+####Gaussian-Bernoulli RBM是指可视层节点服从高斯分布，隐层节点服从二值分布。多隐层RBM通常是第一层为Gaussian-Bernoulli RBM，后面几层为stack Bernoulli-Bernoulli RBM 构成的。能量函数为：
+<div style="text-align: center">
+<img src="../images/RBM2-3.jpg">
+</div>
+
+####其中$$\sigma_{i}$$为输入数据$$v$$的标准方差。<font color="red">为了便于计算, 这里通常我们会首先对数据进行归一化处理，使得满足均值为0，方差为1的高斯分布。</font>
+
+
 
 
 ####**Reference**
 ####[1] Yamashita T, Tanaka M, Yoshida E. To be Bernoulli or to be Gaussian, for a Restricted Boltzmann Machine[J]. To be Bernoulli or to be Gaussian, for a Restricted Boltzmann Machine, 2014: 1520-1525.
 
-####[2] 
+####[2] Hinton G. A practical guide to training restricted Boltzmann machines[J]. Momentum, 2010, 9(1): 926.
