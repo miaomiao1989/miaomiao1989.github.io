@@ -155,7 +155,9 @@ $$E(y,x,h)=\frac{\|x-b\|_{2}^{2}}{2}-h^{T}Wx-c^{T}h-d^{T}e_{y}-h^{T}Ue_{y}$$
 
 ####判别模型是直接最小化条件概率：
 
-$$\min -\underset{i}{\sum}\log p(y_{i}|x_{i})$$
+<div style="text-align: center">
+<img src="../images/RBM2-18.jpg">
+</div>
 
 
 ####在这个过程中不需要单独计算隐层节点，也没有重构过程，而是利用条件概率$$p(y|x)$$直接更新参数。
@@ -183,6 +185,41 @@ $$
 <img src="../images/RBM2-12.jpg">
 </div>
 
+$$ $$
+
+####从上述的这一公式也可以看出来，若输入可视层$$x$$是高斯分布，则$$p(y|x)$$也是这个公式，因为高斯分布与Bernoulli分布唯一不同的是将$$e^{b^{T}x}$$换成$$e^{\frac{\|x-b\|_{2}^{2}}{2}}$$，而这一项在上下相除的时候被约去了。
+
+####在判别模型中，没有隐层到可视层或隐层到输出层的重构过程，参数的更新是直接利用条件概率$$p(y|x)$$进行求解的，具体过程为：
+
+<div style="text-align: center">
+<img src="../images/RBM2-19.jpg">
+</div>
+
+<div style="text-align: center">
+<img src="../images/RBM2-20.jpg">
+</div>
+
+$$
+\triangle d=e_{y}-p(y|x)
+$$
+
+####因此可以看到，在参数更新求解过程中，高斯分布输入节点和Bernoulli分布参数更新方式也是相同的。
+
+####**混合模型**
+
+####混合模型是将生成模型和判别模型以加权的方式进行叠加，
+
+<div style="text-align: center">
+<img src="../images/RBM2-21.jpg">
+</div>
+
+$$ $$
+
+####即首先分别利用生成模型和判别模型分别计算出参数更新$$\triangle W, \triangle U, \triangle d, \triangle b, \triangle c$$,然后加权相加：
+
+$$\triangle W= 生成模型(\triangle W)+ \alpha 判别模型(\triangle W)$$
+
+$$\triangle U= 生成模型(\triangle U)+ \alpha 判别模型(\triangle U)$$
 
 ####**Reference**
 
