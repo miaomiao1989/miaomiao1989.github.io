@@ -34,9 +34,6 @@ $$a_{j}=a_{j}+\alpha(<h_{j}>_{data}-<j_{j}>_{recon})$$
 
 ####&nbsp;&nbsp;&nbsp;&nbsp;Bernoulli-Bernoulli的条件概率为：
 
-$$p(h_{j}=1|v)=sigmoid(b_{j}+\underset{i}{\sum}v_{i}w_{ij})$$
-
-$$p(v_{i}=1|h)=sigmoid(a_{i}+\underset{j}{\sum}h_{j}w_{ij})$$
 <div style="text-align: center">
 <img src="../images/RBM2-13.jpg">
 <img src="../images/RBM2-14.jpg">
@@ -61,9 +58,10 @@ $$a_{j}=a_{j}+\alpha(<h_{j}>_{data}-<j_{j}>_{recon})$$
 
 ####&nbsp;&nbsp;&nbsp;&nbsp;Gaussian-Bernoulli RBM条件概率为(参见文献[3])：
 
-$$p(h_{j}=1|v)=sigmoid(b_{j}+\underset{i}{\sum}\frac{1}{\sigma_{i}}v_{i}w_{ij})$$
-
-$$p(v_{i}=1|h)=\mathcal{N}(a_{i}+\underset{j}{\sum}h_{j}w_{ij}, \sigma_{i}^{2})$$
+<div style="text-align: center">
+<img src="../images/RBM2-15.jpg">
+<img src="../images/RBM2-16.jpg">
+</div>
 
 ####&nbsp;&nbsp;&nbsp;&nbsp;这里实现过程是计算：$$p(v_{i}=1|h)=a_{i}+\underset{j}{\sum}h_{j}w_{ij}$$+高斯分布的随机数。
 
@@ -147,7 +145,9 @@ $$E(y,x,h)=\frac{\|x-b\|_{2}^{2}}{2}-h^{T}Wx-c^{T}h-d^{T}e_{y}-h^{T}Ue_{y}$$
 
 ####重构过程中的条件概率为：
 
-$$p(x|h)=\mathcal{N}(b_{i}+\underset{j}{\sum}W_{ji}h_{j})$$
+<div style="text-align: center">
+<img src="../images/RBM2-17.jpg">
+</div>
 
 ####<font color='red'>其余的，如$p(h|y,x),p(y|h)$,参数更新和Bernoulli分布的相同的计算公式。</font>
 
