@@ -37,6 +37,10 @@ $$a_{j}=a_{j}+\alpha(<h_{j}>_{data}-<j_{j}>_{recon})$$
 $$p(h_{j}=1|v)=sigmoid(b_{j}+\underset{i}{\sum}v_{i}w_{ij})$$
 
 $$p(v_{i}=1|h)=sigmoid(a_{i}+\underset{j}{\sum}h_{j}w_{ij})$$
+<div style="text-align: center">
+<img src="../images/RBM2-13.jpg">
+<img src="../images/RBM2-14.jpg">
+</div>
 
 ####&nbsp;&nbsp;&nbsp;&nbsp;<font color='red'>因为在Bernoulli-Bernoulli RBM中，大部分的数据是分布在0,1处，因此实际上是并不能很准确的表达有用信息的，正是因为这一原因，如果将自然图像的实值数据归一化到[0,1]之间，用Bernoulli-Bernoulli RBM来刻画是不合理的(参见文献[2]，[3]第30页)。</font>
 
