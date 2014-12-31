@@ -18,7 +18,7 @@ layout: default
 ####&emsp;&emsp;ESR(文献[2])使用了一个两级的boosted regressor。作者是使用了第一级10级，第二层500级。在这个二级结构中，第一级中每个节点都是500个弱分类器的级联，也就是一个第二层的regressor(文献[3](rcpr)中使用的是100个第一层，50个第二层regressor)。在第二层regressor中，特征是保持不变的，而在第一层中，特征是变化的。所以，这事实上是一个两层的结构, 并不是一层的结构。在第一层，每一个节点的输出都是上一个节点的输入。都是在上一级估计的关键点上在取的特征。如下图
 
 <div style="text-align: center">
-<img src="../images/mark1.jpg">
+<img src="../Images/mark1.jpg">
 </div>
 
 ####&emsp;&emsp;其中$$S$^{0}$为初始化形状，$$R^{t}$$为第$$t$$个第一层回归器，$$S^{t}$$为经过第$$t$$个第一层回归器后得到的形状。
@@ -28,7 +28,7 @@ layout: default
 ####&emsp;&emsp;**第二层回归器**ESR用的是Fern(一种二叉树)(注：Fern和普通二叉树不同的是，Fern不用存储根节点，只存储叶子节点，即对于输入的每个样本最终都要到达叶子节点中的一个，不在中间根节点停止。而普通二叉树需要用样本来构建根节点)。Fern是N个特征和阈值的组合，将训练样本划分为2的F次幂个bins。每一个bin对应一个输出，
 
 <div style="text-align: center">
-<img src="../images/mark2.jpg">
+<img src="../Images/mark2.jpg">
 </div>
 
 ####&emsp;&emsp;这里通俗的理解就是能够到达该bin的所有样本的平均值，作为当前bin的输出。
@@ -38,7 +38,7 @@ layout: default
 ####&emsp;&emsp;前面在第一节中提到过，在两层回归器的应用的特征是不同的。第一层中应用的是shape indexd feature。CPR (文献[4])中提出了 pose indexd feature，这种特征保持了对形状的不变性，从而增加了算法的鲁棒性。在ESR(文献[2])方法中，将这种feature变成了shape indexd feature，所谓的shape index feature，就是根据关键点的位置和一个偏移量，取得该位置的像素值，然后计算两个这样的像素的差值，从而得到了形状索引特征。该方法中采用的是局部坐标而非全局坐标系，极大的增强了特征的鲁棒性。如下图所示：(具体选取方法在后面会详细讲)。
 
 <div style="text-align: center">
-<img src="../images/mark3.jpg">
+<img src="../Images/mark3.jpg">
 </div>
 
 ####&emsp;&emsp;其中第一行为相对于整幅图像的坐标，第二行为相对于单个特征点的特征选取的坐标，可以看到相对特征点来说对于整个人脸的移动，偏置等比相对于整幅图像要更鲁棒。
@@ -62,7 +62,7 @@ layout: default
   &emsp; <b>1.</b> 更新回归误差;<br>
   &emsp; <b>2.</b> 选择Correlation-based feature：(实验中选择5维，决定着Fern的深度)<br>
   &emsp;&emsp;计算方法如下：<br>
-  ![](../images/mark4.jpg)<br>
+  ![](../Images/mark4.jpg)<br>
   &emsp;&emsp;其中$$Y_{proj}$$为回归目标在随机向量上的投影，$$\rho_{m}, \rho_{n}$$为shape index feature中的一个，$$cov$$为协方差计算。<br>
    &emsp; <b>3.</b> 训练Fern;<br>
    &emsp;随机产生Correlation-based feature个数相同个阈值，用来和Correlation-based feature特征进行比较，使得样本能够到达Fern的某个叶子节点。(这里阈值的个数和Fern的深度由Correlation-based feature的个数决定，例如实验中为5，则Fern的深度为5，叶子节点也称bin的个数为$$2^{5}$$个，相应的阈值个数也应该为5.)利用相应阈值和训练集每个样本相应的Correlation-based feature进行比较，直到最后一个，样本能够到达Fern的32个bin中的一个，待所有训练样本完成，当前Fern的每个bin的输出为所有到达该bin的训练集目标值的平均值，到此，一个Fern的训练完成；<br>
@@ -89,7 +89,7 @@ layout: default
 ####文献[3]中rcpr在上述方法的基础之上，提出了遮挡信息，即在样本的特征点形状向量后面还有一维信息为是否遮挡，不遮挡为0，遮挡为1。文章中提出的这一遮挡信息有两个用处，一个是在测试过程中用来推测测试样本中的每个特征点是否是遮挡的，另一个作用是在训练过程中用遮挡信息作为权值，在每个第二层回归器中，用同样的回归目标训练3个Fern，用这3个Fern的加权平均值作为该层第二层回归器的输出。
 
 ####在上一节中讲到训练过程中外层回归器用的是100个，内层回归器是50个。而在含有遮挡信息时，内层回归器是15*3个， 15是内层回归器的个数，3是每层内层回归器有平行的三个Fern，用加权平均作为每个15层内层回归器的输出值。
-![](../images/mark5.jpg)
+![](../Images/mark5.jpg)
 
 ####&emsp;&emsp;上图(a)是遮挡信息的示例，在训练过程中，将提取到每个样本的shape index feature的每一个归一化到[0,1]之间，然后标记每个feature落在上述图(b)中的哪个group，同理将预测到的训练样本的特征点也相同方法处理，记录落在哪个group中。然后计算每个训练样本预测的的特征点落在的gounp中和它相关的shape index feature的个数，将这个个数归一化后作为此特征点预测结果的权值(比如假设共有4个特征点，分别落在上图(b)的1,2,3,4group内，和他们相关的shape index featrue落在相应的1,2,3,4group中的个数为10,20，30,40个，则权值为1-(10/100, 20/100, 30/100, 40/100))。
 
