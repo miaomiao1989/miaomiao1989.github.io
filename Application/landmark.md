@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: post
 ---
 #**形状回归人脸特征点检测**
 
