@@ -44,6 +44,13 @@ layout: default
 ####&emsp;&emsp;其中第一行为相对于整幅图像的坐标，第二行为相对于单个特征点的特征选取的坐标，可以看到相对特征点来说对于整个人脸的移动，偏置等比相对于整幅图像要更鲁棒。
 
 ####&emsp;&emsp;第二层训练Fern利用的是Correlation-based feature。即从第一层中的shape index 中选择其中相关性最强的几个特征(rcpr(文献[3])中选择的是5个)。假设说我们需要训练50个Fern，那么我们从第一层的shape index feature中选择50组相关性最强个5个特征，每5个特征用来训练一个Fern。这里这5个特征的选择方法，文献[2]中称为“Correlation-based feature selection”，选择方法简单来说是将目标$$y$$投影到随机向量上得到$$y_{proj}$$，然后计算$$y_{proj}$$和每个特征之间的相关系数，选择相关系数最大的前k个构成相关性特征去学习Fern.
+计算方法如下：
+  
+ <div style="text-align: center">
+ <img src="../Images/mark4.jpg">
+ </div>
+ 
+####其中$$Y_{proj}$$为回归目标在随机向量上的投影，$$\rho_{m}, \rho_{n}$$为shape index feature中的一个，$$cov$$为协方差计算。
 
 ####&emsp;&emsp;关于Fern的选择是，对每个样本都利用上述方法提取5个相关性特征，然后随机取5个阈值，利用每个相关性特征和阈值的大小比较，使得每个样本都能达到Fern的叶子节点(Fern是二叉树的一种，但只保存叶子节点，假设Fern的深度为5，则应该有叶子节点32个，这里利用阈值使得每个样本都达到32个叶子节点中的一个)， 然后这一Fern的32个叶子节点的输出为所有到达该叶子节点的训练样本的特征点形状的平均值。以此类推，可以训练到其他的Fern。
 
@@ -52,8 +59,8 @@ layout: default
 ####**训练过程**
 * <h4> 初始化训练样本的形状： 这里首先要对形状进行归一化，因为我们现有的ground truth坐标都是相对于整幅图像而言的，在计算的过程中比较复杂，这里首先要将这些ground truth相对于人脸框中心和人脸框宽度进行归一化，这种处理也是为了能够对人脸框大小，图像大小比较鲁棒。然后对人脸框位置添加随机扰动，ground truth相对于扰动后的人脸的归一化信息作为训练样本的初始形状。为了提高泛化能力，文献[2]中使用多个初始化(实验中是20个)初始化形状。</h4>
 * <h4><b>For t=1 : T</b>(第一层回归器个数回归器个数，实验中为100)</h4>
-  - <h4><b>计算目标误差:</b></h4><br> 计算第t次第一层回归器预测结果和ground truth的误差，作为目标值输入第二层回归器.
-  - <h4><b>计算shape index feature:</b></h4><br>
+  - <h4><b>计算目标误差:</b></h4> 计算第t次第一层回归器预测结果和ground truth的误差，作为目标值输入第二层回归器.
+  - <h4><b>计算shape index feature:</b></h4>
   &emsp;&emsp;文献[2]中提出的是利用与训练集上的<font color='red'>平均形状</font>的特征点最近的点，即：假如需要选择400个shape index feature，随机产生400个2维随机数，作为相对于人脸框大小归一化后的与人脸框中心点的相对坐标$$x,y$$，用这400个坐标点与平均形状的每个特征点计算距离，取距离最小的特征点和距离差，作为这400个shape index feature的坐标索引， 用这一索引去取<font color='red'>训练集图像</font>原始图像上对应位置的像素值作为训练样本的shape index featrue。<br>
   &emsp;&emsp;文献[3]在上面基础上提出了利用和训练集平均形状两个特征点相关的点作为shape index featrue。即：假设需要400个shape index feature，首先需要随机产生400对特征点组合，和400个随机数，用每对特征点的坐标可以计算一条直线，用随机数作为x轴坐标，在这条直线上取点，取到的点作为索引，在训练集原始图像上的取相应的灰度值作为shape index feature。这种方法可以用两个特征点约束shape index feature，而且不需要利用训练集上的平均形状。
   - <b>训练回归器Fern</b><br>
@@ -61,18 +68,11 @@ layout: default
   <b>For k=1 : K</b>(第二层回归器Fern个数，实验中为50)<br>
   &emsp; <b>1.</b> 更新回归误差;<br>
   &emsp; <b>2.</b> 选择Correlation-based feature：(实验中选择5维，决定着Fern的深度)<br>
-  &emsp;&emsp;计算方法如下：
-  
- <div style="text-align: center">
- <img src="../Images/mark4.jpg">
- </div>
-  
-  &emsp;&emsp;其中$$Y_{proj}$$为回归目标在随机向量上的投影，$$\rho_{m}, \rho_{n}$$为shape index feature中的一个，$$cov$$为协方差计算。<br>
    &emsp; <b>3.</b> 训练Fern;<br>
-   &emsp;随机产生Correlation-based feature个数相同个阈值，用来和Correlation-based feature特征进行比较，使得样本能够到达Fern的某个叶子节点。(这里阈值的个数和Fern的深度由Correlation-based feature的个数决定，例如实验中为5，则Fern的深度为5，叶子节点也称bin的个数为$$2^{5}$$个，相应的阈值个数也应该为5.)利用相应阈值和训练集每个样本相应的Correlation-based feature进行比较，直到最后一个，样本能够到达Fern的32个bin中的一个，待所有训练样本完成，当前Fern的每个bin的输出为所有到达该bin的训练集目标值的平均值，到此，一个Fern的训练完成；<br>
+   &emsp;&emsp;随机产生Correlation-based feature个数相同个阈值，用来和Correlation-based feature特征进行比较，使得样本能够到达Fern的某个叶子节点。(这里阈值的个数和Fern的深度由Correlation-based feature的个数决定，例如实验中为5，则Fern的深度为5，叶子节点也称bin的个数为$$2^{5}$$个，相应的阈值个数也应该为5.)利用相应阈值和训练集每个样本相应的Correlation-based feature进行比较，直到最后一个，样本能够到达Fern的32个bin中的一个，待所有训练样本完成，当前Fern的每个bin的输出为所有到达该bin的训练集目标值的平均值，到此，一个Fern的训练完成；<br>
    &emsp;<b>4. </b>输出训练集的预测值。<br>
-    **end**(第二层回归器Fern)<br>
-   - **计算预测值与真实值误差；**<br>
+   - <b>end</b>(第二层回归器Fern)<br>
+   - <b>计算预测值与真实值误差；</b>
 * <h4><b>end</b>(第一层回归器)</h4>
 
 ####**测试过程**
