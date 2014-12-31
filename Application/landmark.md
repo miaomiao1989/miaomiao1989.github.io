@@ -1,9 +1,5 @@
 ---
-<<<<<<< HEAD
-layout: post
-=======
 layout: default
->>>>>>> 80e23ccd0f4162564c0c4c762bd5d603c7c1cf79
 ---
 #**形状回归人脸特征点检测**
 
