@@ -51,9 +51,9 @@ layout: default
 
 ####**训练过程**
 * <h4> 初始化训练样本的形状： 这里首先要对形状进行归一化，因为我们现有的ground truth坐标都是相对于整幅图像而言的，在计算的过程中比较复杂，这里首先要将这些ground truth相对于人脸框中心和人脸框宽度进行归一化，这种处理也是为了能够对人脸框大小，图像大小比较鲁棒。然后对人脸框位置添加随机扰动，ground truth相对于扰动后的人脸的归一化信息作为训练样本的初始形状。为了提高泛化能力，文献[2]中使用多个初始化(实验中是20个)初始化形状。</h4>
-* <h4><b>For t=1 : T</b>(第一层回归器个数回归器个数，实验中为100)
-  - <b>计算目标误差:</b><br> 计算第t次第一层回归器预测结果和ground truth的误差，作为目标值输入第二层回归器.
-  - <b>计算shape index feature:</b><br>
+* <h4><b>For t=1 : T</b>(第一层回归器个数回归器个数，实验中为100)</h4>
+  - <h4><b>计算目标误差:</b></h4><br> 计算第t次第一层回归器预测结果和ground truth的误差，作为目标值输入第二层回归器.
+  - <h4><b>计算shape index feature:</b></h4><br>
   &emsp;&emsp;文献[2]中提出的是利用与训练集上的<font color='red'>平均形状</font>的特征点最近的点，即：假如需要选择400个shape index feature，随机产生400个2维随机数，作为相对于人脸框大小归一化后的与人脸框中心点的相对坐标$$x,y$$，用这400个坐标点与平均形状的每个特征点计算距离，取距离最小的特征点和距离差，作为这400个shape index feature的坐标索引， 用这一索引去取<font color='red'>训练集图像</font>原始图像上对应位置的像素值作为训练样本的shape index featrue。<br>
   &emsp;&emsp;文献[3]在上面基础上提出了利用和训练集平均形状两个特征点相关的点作为shape index featrue。即：假设需要400个shape index feature，首先需要随机产生400对特征点组合，和400个随机数，用每对特征点的坐标可以计算一条直线，用随机数作为x轴坐标，在这条直线上取点，取到的点作为索引，在训练集原始图像上的取相应的灰度值作为shape index feature。这种方法可以用两个特征点约束shape index feature，而且不需要利用训练集上的平均形状。
   - <b>训练回归器Fern</b><br>
@@ -63,7 +63,9 @@ layout: default
   &emsp; <b>2.</b> 选择Correlation-based feature：(实验中选择5维，决定着Fern的深度)<br>
   &emsp;&emsp;计算方法如下：
   
-  ![](../Images/mark4.jpg)
+ <div style="text-align: center">
+ <img src="../Images/mark4.jpg">
+ </div>
   
   &emsp;&emsp;其中$$Y_{proj}$$为回归目标在随机向量上的投影，$$\rho_{m}, \rho_{n}$$为shape index feature中的一个，$$cov$$为协方差计算。<br>
    &emsp; <b>3.</b> 训练Fern;<br>
