@@ -109,7 +109,11 @@ layout: default
  <img src="../Images/mark6.jpg">
  </div>
  
-####其中$$I$$为输入图像，$$S^{t-1}$$为前一个第一层回归得到的形状，$$\phi ^{t}$$为特征映射函数，$$W^{t}$$为线性回归矩阵。$$\phi ^{t}$$又分解为一系列的独立的局部特征映射函数，如$$\phi ^{t}=[\varphi^{t}_{1}, \varphi^{t}_{2}, \cdots ,\varphi^{t}_{L}]$$, 其中$$L$$为特征点的个数。这里简单来说就是将每个特征点单独进行
+####其中$$I$$为输入图像，$$S^{t-1}$$为前一个第一层回归得到的形状，$$\phi ^{t}$$为特征映射函数，$$W^{t}$$为线性回归矩阵。$$\phi ^{t}$$又分解为一系列的独立的局部特征映射函数，如$$\phi ^{t}=[\varphi^{t}_{1}, \varphi^{t}_{2}, \cdots ,\varphi^{t}_{L}]$$, 其中$$L$$为特征点的个数。这里简单来说就是将每个特征点单独进行回归,在其特定的局部区域内进行回归学习。这种方法能够有效的剔除大部分的噪声或者判断力弱的特征，降低学习复杂度，从而达到更好的泛化性。
+
+####上面我们也提到了，3000FPS也是利用两层回归进行学下的，首先内层也就是第二层为每个特征点单独的学习局部特征回归，将特征映射成二值特征
+
+
 
 ####**Refernce**
 
@@ -122,3 +126,5 @@ layout: default
 ####[4] Dollár P, Welinder P, Perona P. **Cascaded pose regression**[C]//Computer Vision and Pattern Recognition (CVPR), 2010 IEEE Conference on. IEEE, 2010: 1078-1085.
 
 ####[5] Ren S, Cao X, Wei Y, et al. **Face Alignment at 3000 FPS via Regressing Local Binary Features**[J].
+
+####[6] http://blog.csdn.net/beerbuddys/article/details/40714371
