@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: post
 ---
 #**拉格朗日对偶**#
 
