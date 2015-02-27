@@ -2,13 +2,20 @@
 
 <div class="wrapper">
    <!--<a class="site-title" href="{{ site.baseurl }}/">{{ site.title }}</a>-->
+ <table>
+ <tr>
+    <td>
 	<a class="site-title" href="{{ site.baseurl }}/"><font color="blue">Miao's homepage</font></a>
-   
-<div id="search" top="50" left="100">
-	<form action="/search" method="get">
-		<input type="text" id="search-query" name="q" placeholder="Search" autocomplete="off">
-	</form>
-</div>
+	</td>
+   <td>	
+     <div id="search">
+	   <form action="/search" method="get">
+		 input type="text" id="search-query" name="q" placeholder="Search" autocomplete="off">
+	   </form>
+     </div>
+	</td>
+ </tr>
+ </table>
 </div>
 
 <section id="search-results" style="display: none;">
