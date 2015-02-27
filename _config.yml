@@ -14,3 +14,11 @@ github_username:  jekyll
 highlighter: true
 markdown: kramdown
 permalink: pretty
+
+gems:
+- jekyll-mentions
+- jemoji
+- jekyll-redirect-from
+- jekyll-sitemap
+
+exclude_from_search: true

@@ -1,29 +1,47 @@
 <header class="site-header">
 
-  <div class="wrapper">
-
+<div class="wrapper">
    <!--<a class="site-title" href="{{ site.baseurl }}/">{{ site.title }}</a>-->
-   <a class="site-title" href="{{ site.baseurl }}/"><font color="blue">Miao's homepage</font></a>
-   
- <div style="position:absolute;top:50px;left:330px"> 
-<table>
-<tr>
-<td  width='200'>
-<center><h2><font color="#0066FF"><a href="{{"/Deep-Learning/"|prepend:site.baseurl }}"><b>Deep-Learning</b></font></h2></center>
-</td>
-<td width='250'>
-<center><h2><font color="#0066FF"><a href="{{"/Machine-Learning/"|prepend:site.baseurl }}"><b>Machine-Learning</b></font></h2></center>
-</td>
-<td width='100'>
-<center><h2><font color="#0066FF"><a href="{{"/Application/"|prepend:site.baseurl }}"><b>Application</b></font></h2></center>
-</td>
-<td width='100'>
-<center><h2><font color="#0066FF"><a href="{{"/code/"|prepend:site.baseurl }}"><b>code</b></font></h2></center>
-</td>
-</tr>
-</table>
+	<a class="site-title" href="{{ site.baseurl }}/"><font color="blue">Miao's homepage</font></a>
 </div>
+   
+<div id="search">
+	<form action="/search" method="get">
+		<input type="text" id="search-query" name="q" placeholder="Search" autocomplete="off">
+	</form>
+</div>
+
+<section id="search-results" style="display: none;">
+  <p>Search results</p>
+  <div class="entries">
   </div>
+</section>
+
+{% raw %}
+    <script id="search-results-template" type="text/mustache">
+      {{#entries}}
+        <article>
+          <h3>
+            {{#date}}
+                <small><time datetime="{{pubdate}}" pubdate>{{displaydate}}</time></small>
+            {{/date}}
+            <a href="{{url}}">{{title}}</a></h3>
+        </article>
+      {{/entries}}
+    </script>
+{% endraw %}
+
+<script src="/js/search.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+  $(function() {
+    $('#search-query').lunrSearch({
+      indexUrl: '/search.json',             // URL of the `search.json` index data for your site
+      results:  '#search-results',          // jQuery selector for the search results container
+      entries:  '.entries',                 // jQuery selector for the element to contain the results list, must be a child of the results element above.
+      template: '#search-results-template'  // jQuery selector for the Mustache.js template
+    });
+  });
+</script>
   
   <script type="text/x-mathjax-config">
 MathJax.Hub.Config({
@@ -33,5 +51,6 @@ MathJax.Hub.Config({
 <script type="text/javascript"
   src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
+
 </header>
 
