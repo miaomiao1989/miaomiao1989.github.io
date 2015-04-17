@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: default
 ---
 #**反卷积网络(Deconvolution network,DC)**
 

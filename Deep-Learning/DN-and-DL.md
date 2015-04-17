@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: default
 ---
 
 #**深度网络和深度学习**

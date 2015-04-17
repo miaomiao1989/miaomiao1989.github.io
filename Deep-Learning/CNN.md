@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: default
 ---
 #**卷积神经网络(CNN)**
 

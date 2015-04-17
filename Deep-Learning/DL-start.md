@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: default
 ---
 #**深度学习开篇**
 

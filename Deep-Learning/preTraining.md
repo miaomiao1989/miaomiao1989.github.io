@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: default
 ---
 
 #**预学习(pre-training)的作用**

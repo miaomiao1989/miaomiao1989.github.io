@@ -1,5 +1,5 @@
 ---
-layout: post 
+layout: default 
 ---
 #**神经网络可视化**
 
