@@ -134,7 +134,7 @@ layout: default
 ####&emsp;&emsp;这一方法中的先局部单个特征点进行回归，后全局线性回归能够给模型添加全局shape约束并且能够减少由于局部遮挡或模糊引起的局部误差。
 
 
-####**Refernce**
+####**Reference**
 
 ####[1]Cootes T F, Taylor C J, Cooper D H, et al. **Active shape models-their training and application**[J]. Computer vision and image understanding, 1995, 61(1): 38-59.
 
