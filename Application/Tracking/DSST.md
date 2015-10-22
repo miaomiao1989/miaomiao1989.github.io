@@ -6,7 +6,7 @@ layout: default
 
 ####&nbsp;&nbsp;&nbsp;&nbsp;这篇主要讨论的是Martin Danelljan 对MOSST[1]的相关滤波()跟踪做了改进，并增加了多尺度跟踪，改进效果很显著，在2014年的VOT(visual object tracking)上，其测试效果是第一的。文章名为Accurate Scale Estimation for Robust Visual Tracking[2]，其代码为DSST。
 
-####&nbsp;&nbsp;&nbsp;&nbsp; - 注：本文部分参考[3]
+####&nbsp;&nbsp;&nbsp;&nbsp;*注：*本文部分参考[3]
 
 ####&nbsp;&nbsp;&nbsp;&nbsp;MOSSE[1]在求解滤波器时，其输入项是图像本身（灰度图），也就是图像的灰度特征。对于灰度特征，其特征较为简单，不能很好的描述目标的纹理、边缘等形状信息，因此DSST的作者将灰度特征替换为在跟踪和识别领域较为常用的HOG特征。
 
