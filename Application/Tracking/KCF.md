@@ -11,7 +11,7 @@ layout: default
 ####&nbsp;&nbsp;&nbsp;&nbsp;相关滤波器能够用于有效定位图像中的显著特征。对于构造一个用于检测图像中的一种特殊类型目标的滤波器问题，理想的滤波器期望是在相关输出值中，目标位置产生强峰值而其他位置为0。该滤波器可以由$$n$$幅训练图像$$\{f_{1},f_{2},\cdots, f_{n}\}$$几何来构造，训练图像实例包含感兴趣目 标及背景。为了训练获得最佳的相关滤波器， 首先根据训练图像建立对应的期望输出图$$\{g_{1}, g_{2}, \cdots, g_{n}\}$$。建立的期望输出可定义为目标位置是峰值而背景位置近似为0，可以采用二维高斯函数来定义:
 
 $$
-g_{i}(x, y) = exp\{-[(x-x_{i}^{2}) + (y-y_{i})^{2}]/ \sigma^{2}
+g_{i}(x, y) = exp\{-[(x-x_{i}^{2}) + (y-y_{i})^{2}]/ \sigma^{2}\}
 $$
 
 ####其中$$(x_{i}, y_{i})$$为训练图像的目标真实坐标，$$\sigma$$为高斯参数，用以调节输入的尖锐程度。
@@ -219,7 +219,7 @@ $$\alpha = (K+\lambda I)^{-1}y$$
 其中$$K$$是核函数矩阵，由于求解逆的过程是耗时的，我们利用循环矩阵进行求解(<font color="red">这里因为训练样本X是循环矩阵，则核矩阵K也是循环矩阵，在论文中有具体证明</font>)。既然已知了$$K$$是循环矩阵，则上式的求解就可以同理转换到傅里叶域进行计算，从而避免求解逆矩阵的过程，可以得到解为：
 
 $$
-\widehat{\alpha}^{*} = \frac{\widehat{y}}{\widehat{k}^{xx} + \lambda}
+\widehat{\alpha} = \frac{\widehat{y}}{\widehat{k}^{xx} + \lambda}
 $$
 
 其中， $$k^{xx}$$是核函数矩阵$$K$$的第一行元素组成的向量,是向量$$x$$和其自身的和相关(kernel correlation)。
@@ -248,12 +248,70 @@ $$f(z) = (K^{z})^{T}\alpha$$
 
 $$\widehat{f}(z) = (\widehat{k}^{xz})\odot\widehat{\alpha}$$
 
-这里$$k^{xz}$$是当前测试帧的基样本(以上一帧的目标框的中心为中心采样)， 和训练基样本(上一帧的精确检测的目标框的中心为中心采样)的核相关在傅里叶域的值，$$\widehat{\alpha}$$为训练过程中(上一帧)计算得到的值。 
+这里$$k^{xz}$$是当前测试帧的基样本(以上一帧的目标框的中心为中心采样)， 和训练基样本(上一帧的精确检测的目标框的中心为中心采样)的核相关在傅里叶域的值，$$\widehat{\alpha}$$为训练过程中(上一帧)计算得到的值。$$\odot$$ 表示按元素内积运算。
 <font color="red">最后可以根据</font>$$f(z)$$<font color = "red">中的最大的响应值对应的位置即当前测试帧中目标偏移的位置.</font>
 
 - **核函数**
  
 ####&nbsp;&nbsp;&nbsp;&nbsp;这里用到的核函数可以是高斯核函数也可以是多项式核函数[1]。
+
+- **具体实现过程**
+
+&nbsp;&nbsp;&nbsp;&nbsp;1. 计算期望输出值$$y$$
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;以中心点坐标为0，目标框转换成中心点为原点的坐标系，假设目标框大小为10x10，则x的坐标为[-5,-4,-3,-2,-1,0,1,2,3,4],y的坐标也为上述。假设$$Y$$为高斯函数定义的期望输出图，应该是目标位置是峰值而其余背景为0.
+
+$$Y = exp[-\frac{1}{2\sigma^{2}}(x^{2}+y^{2})]$$
+
+将Y的值转换到傅里叶域
+
+$$\widehat{Y} = \mathcal{F}(Y)$$
+
+&nbsp;&nbsp;&nbsp;&nbsp;2. 从第一帧中训练模型
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1. 以目标框扩大1.5倍的图像块作为输入进行特征提取$$x$$(可以是HOG特征，原始灰度图像特征，也可以是CNN提取的特征，在后面的博文中会详细讲述).
+
+将提取的特征转换到傅里叶域：
+
+$$\widehat{x} = \mathcal{F}(x)$$
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2. 计算$$\widehat{x},\widehat{x}$$本身之间的核相关性，高斯核函数的和相关性为(假设下述公式中$$x=\widehat{x}$$为了方便书写)：
+
+$$\widehat{K}^{xx} = \mathcal{F}(exp(-\frac{1}{\sigma^{2}}(\|x\|^{2} + \|x\|^{2}-2\mathcal{F}^{-1}(\widehat{x^{*}}\odot\widehat{x^{*}}))))$$
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3. 计算参数$$\alpha$$
+
+$$\widehat{\alpha} = \frac{\widehat{Y}}{\widehat{K}^{xx}+\lambda}$$
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4. 更新模型
+
+$$\text{model_}\widehat{\alpha} = \widehat{\alpha}$$
+
+$$\text{model_}\widehat{x} = \widehat{x}$$
+
+&nbsp;&nbsp;&nbsp;&nbsp;3. 从第二帧开始检测
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1. 以上一帧检测到的中心点为中心点，以目标框扩大1.5倍在当前帧上提取图像库，提取特征为
+
+$$\widehat{x}_{i} = \mathcal{F}(x_{i})$$
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2. 计算$$\widehat{x}_{i}$$和$$\text{model_}x$$的核相关性$$\widehat{k}^{\text{model_}xx_{i}}$$
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3. 计算相关性检测当前帧的位置：
+
+$$\widehat{f(x)}_{i} = (\widehat{k}_{xx_{i}})\odot(\widehat{\alpha})$$
+
+$$\text{response} = \mathcal{F}^{-1}(\widehat{k}^{xx_{i}}\odot\text{model_}\widehat{\alpha})$$
+
+取response中最大位置的坐标为当前帧的偏移量。
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4. 以预测到的新的目标框在当前帧重新计算$$\widehat{\alpha}， \widehat{x}$$,重复第一帧训练的第1, 2，3步骤。
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;5. 重新更新模型：
+
+$$\text{model_}\widehat{\alpha} = (1-\mu)\text{model_}\widehat{\alpha} + \mu\widehat{\alpha}$$
+
+$$\text{model_}\widehat{x} = (1-\mu)\text{model_}\widehat{x} + \mu\widehat{x}$$
 
 #### **Reference**
 

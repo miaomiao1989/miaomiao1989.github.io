@@ -67,7 +67,7 @@ $$S^{-}(p, M) = max_{p^{-}\in M}S(p,p_{i}^{-})$$
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1）首先在上一帧的目标框中均匀采样10*10个特征点(网格均匀撒点)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2）利用金字塔LK光流法跟踪这些特征点，并预测当前帧的特征点，计算特征点median误差和median NCC，根据median误差和median NCC舍弃跟踪不符合的特征点；
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2）利用金字塔LK光流法跟踪这些特征点，并预测当前帧的特征点，计算特征点median误差和median NCC，根据median误差(光流返回的Forward-Backward error)和median NCC(光流返回的)舍弃跟踪不符合的特征点。这里median是指排序之后中间值(奇数个取中间值的数值，偶数个取中间两个数值的平均值)，用这两个median值作为筛选特征点的阈值；
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3）用剩余的特征点来预测目标框bounding box的位置和大小
 
@@ -99,10 +99,13 @@ $$S^{-}(p, M) = max_{p^{-}\in M}S(p,p_{i}^{-})$$
 
 &nbsp;&nbsp;&nbsp;&nbsp;**2）**采样负样本：由检测过程中检测为正样本的负样本中和跟踪输出的目标框重叠面积足够小的样本作为负样本。并更新正负训练样本集，执行下一帧的相似性计算。
 
-&nbsp;&nbsp;&nbsp;&nbsp;**3）**利用采样得到的正样本和负样本进行Fern和NN的重新训练。
+&nbsp;&nbsp;&nbsp;&nbsp;**3）**利用采样得到的正样本和负样本进行Fern和NN的重新训练。这里需要注意的是是，在更新Fern的样本和NN的负样本不同，更新Fern的负样本是选择与目标框overlap足够小而且在上一次的Fern分类中
+计算的置信度Conf足够小的所有样本，而训练NN的样本为上次Fern输出的正样本中重叠面积与目标框足够小的样本(百分比的误检样本)。这样不同是有道理的，Fern的更新应该要用Fern检测的结果进行分析，而不应该用NN输出的结果重新更新，否则经过了NN的二次作用，无法判断Fern还对哪些样本比较不感冒~
 
 #### **Reference**
 
 [1] Zdenek Kalal, **Tracking learning detection**, TPAMI 2010.
 
 [2] <http://johnhany.net/2014/05/tld-the-theory/>
+
+[3] <http://www.thinkface.cn/forum.php?mod=viewthread&tid=3119&extra=page%3D1%26filter%3Dauthor%26orderby%3Ddateline>
