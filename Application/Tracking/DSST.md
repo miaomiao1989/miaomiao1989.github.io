@@ -27,11 +27,11 @@ $$
 
 ### **2. DSST跟踪**
 
-####&nbsp;&nbsp;&nbsp;&nbsp;DSST跟踪算法使用了相关滤波器。DSST将跟踪分为两个部分，位置变化(translation)和尺度变化(scale estimation)。在跟踪的实现过程中，作者定义了两个correlation filter，一个滤波器(translation filter)专门用于确定新的目标所处的位置，另一个滤波器(scale filter)专门用于尺度评估。
+#### &nbsp;&nbsp;&nbsp;&nbsp;DSST跟踪算法使用了相关滤波器。DSST将跟踪分为两个部分，位置变化(translation)和尺度变化(scale estimation)。在跟踪的实现过程中，作者定义了两个correlation filter，一个滤波器(translation filter)专门用于确定新的目标所处的位置，另一个滤波器(scale filter)专门用于尺度评估。
 
 - #### **位置变化(translation)**
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;** 1. 训练过程**
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**1. 训练过程**
 
 #### &nbsp;&nbsp;&nbsp;&nbsp;训练过程即为学习相关滤波器$$H$$的过程。
 
@@ -52,7 +52,7 @@ $$
 这里$$F^{\ell}$$为将特征转换到傅里叶域之后的值，$$\overline{F}, \overline{G}$$表示复共轭，$$G$$表示目标输出$$g$$转换到傅里叶域的值。<font color = "red">将上式中的分子，分母分别记为</font>$$A_{t}，B_{t}$$<font color = "red">(t表示第t帧)</font>。
 
 
-** &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2. 检测过程**
+**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2. 检测过程**
   
 #### &nbsp;&nbsp;&nbsp;&nbsp;假设我们在第$$t$$帧训练好了相关滤波器$$H^{\ell}$$，在第$$t+1$$帧进行检测时，只需要计算最大的响应值：
 
