@@ -2,7 +2,7 @@
 layout: default
 ---
 
-#**Struck**
+# **Struck**
 
 #### &nbsp;&nbsp;&nbsp;&nbsp;这里主要讨论的是《Struck:Structured Output Tracking with Kernels》[1]的跟踪算法，struck跟踪算法与传统的tracking-by-detection算法的不同之处，可以用如下图表示：
 
