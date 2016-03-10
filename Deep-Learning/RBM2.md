@@ -65,11 +65,11 @@ $$a_{j}=a_{j}+\alpha(<h_{j}>_{data}-<j_{j}>_{recon})$$
 
 #### &nbsp;&nbsp;&nbsp;&nbsp;这里实现过程是计算：$$p(v_{i}=1|h)=a_{i}+\underset{j}{\sum}h_{j}w_{ij}$$+高斯分布的随机数。
 
-####&nbsp;&nbsp;&nbsp;&nbsp;Gaussian-Bernoulli RBM相比较于Bernoulli-Bernoulli RBM是难以学习的，因为Gaussian输入的数据没有上下界限，不像Bernoulli分布数据介于[0,1]之间，而对于RBM来说，得到的隐层节点和可视层节点分布于[-1,1]之间是比较合理的， 也正是因为之一原因，Bernoulli-Bernoulli RBM更为稳定(参见文献[2])。
+#### &nbsp;&nbsp;&nbsp;&nbsp;Gaussian-Bernoulli RBM相比较于Bernoulli-Bernoulli RBM是难以学习的，因为Gaussian输入的数据没有上下界限，不像Bernoulli分布数据介于[0,1]之间，而对于RBM来说，得到的隐层节点和可视层节点分布于[-1,1]之间是比较合理的， 也正是因为之一原因，Bernoulli-Bernoulli RBM更为稳定(参见文献[2])。
 
 #### **Gaussian-Gaussian RBM**
 
-####&nbsp;&nbsp;&nbsp;&nbsp;Gaussian-Gaussian RBM是指输入可视层和隐层都是连续的实值高斯分布数据。这一模型结构虽然很强大，但是由于输入层和隐层都是高斯分布，这使得模型受更多数据噪声的影响，模型变得更加不稳定，训练比较困难(参见文献[3]第30页，[2]第14页)。能量函数为：
+#### &nbsp;&nbsp;&nbsp;&nbsp;Gaussian-Gaussian RBM是指输入可视层和隐层都是连续的实值高斯分布数据。这一模型结构虽然很强大，但是由于输入层和隐层都是高斯分布，这使得模型受更多数据噪声的影响，模型变得更加不稳定，训练比较困难(参见文献[3]第30页，[2]第14页)。能量函数为：
 
 <div style="text-align: center">
 <img src="../images/RBM2-4.jpg">
@@ -77,7 +77,7 @@ $$a_{j}=a_{j}+\alpha(<h_{j}>_{data}-<j_{j}>_{recon})$$
 
 ### **1. 判别RBM(Discriminative RBM)**
 
-####在通常使用RBM训练时，通常是利用RBM进行无监督学习，将得到的特征输入分类器，再进行分类器的学习。在这个特征学习的过程中，没有用到训练样本的类标信息，使得学习到的特征并不能够最大程度上体现类间的信息。因此，文献[4-5]提出的判别RBM直接将分类层的训练在RBM训练的过程中一起训练，不再单独训练分类器。即判别RBM的最后输出直接就是类标，而不再是特征向量。
+#### 在通常使用RBM训练时，通常是利用RBM进行无监督学习，将得到的特征输入分类器，再进行分类器的学习。在这个特征学习的过程中，没有用到训练样本的类标信息，使得学习到的特征并不能够最大程度上体现类间的信息。因此，文献[4-5]提出的判别RBM直接将分类层的训练在RBM训练的过程中一起训练，不再单独训练分类器。即判别RBM的最后输出直接就是类标，而不再是特征向量。
 
 #### 判别RBM主要分为三个模型，生成模型，判别模型和混合模型(参见文献[4-5])。
 
