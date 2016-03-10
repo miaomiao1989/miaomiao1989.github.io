@@ -253,7 +253,7 @@ $$\widehat{f}(z) = (\widehat{k}^{xz})\odot\widehat{\alpha}$$
 
 - **核函数**
  
-####&nbsp;&nbsp;&nbsp;&nbsp;这里用到的核函数可以是高斯核函数也可以是多项式核函数[1]。
+#### &nbsp;&nbsp;&nbsp;&nbsp;这里用到的核函数可以是高斯核函数也可以是多项式核函数[1]。
 
 - **具体实现过程**
 
