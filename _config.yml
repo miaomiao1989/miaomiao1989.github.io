@@ -15,5 +15,6 @@ github_username:  miaomiao1989
 markdown: kramdown
 permalink: pretty
 highlighter: rouge
+encoding: UTF-8
 
 
